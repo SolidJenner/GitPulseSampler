@@ -1,0 +1,23 @@
+{
+  "name": "gitpulsesampler",
+  "version": "0.0.1",
+  "description": "dev-start version of testing project for Orange Business, private",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none yet"
+  },
+  "keywords": [
+    "obs",
+    "test",
+    "application",
+    "stuff",
+    "private"
+  ],
+  "author": "solidjenner",
+  "license": "ISC"
+}
