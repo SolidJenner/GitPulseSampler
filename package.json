@@ -4,12 +4,12 @@
   "description": "dev-start version of testing project for Orange Business, private",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "client": "cd client && npm start"
   },
   "repository": {
     "type": "git",
-    "url": "none yet"
+    "url": "https://github.com/SolidJenner/GitPulseSampler"
   },
   "keywords": [
     "obs",
@@ -19,5 +19,10 @@
     "private"
   ],
   "author": "solidjenner",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
