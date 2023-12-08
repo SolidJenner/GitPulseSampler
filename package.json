@@ -4,7 +4,8 @@
   "description": "dev-start version of testing project for Orange Business, private",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
     "client": "cd client && npm start"
   },
   "repository": {
@@ -21,9 +22,14 @@
   "author": "solidjenner",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^20.0.2",
     "axios": "^1.6.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
