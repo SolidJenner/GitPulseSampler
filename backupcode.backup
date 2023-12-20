@@ -1,0 +1,299 @@
+
+//
+export const FETCH_INFO_REQUEST = 'FETCH_INFO_REQUEST';
+export const FETCH_INFO_SUCCESS = 'FETCH_INFO_SUCCESS';
+export const FETCH_INFO_FAILURE = 'FETCH_INFO_FAILURE';
+const axios = require('axios');
+
+export const fetchInfoRequest = () => {
+  return {
+    type: FETCH_INFO_REQUEST
+  }
+}
+
+export const fetchInfoSuccess = (userinf) => {
+  return {
+    type: FETCH_INFO_SUCCESS,
+    payload: userinf
+  }
+}
+
+export const fetchInfoFailure = (error) => {
+  return {
+    type: FETCH_INFO_FAILURE,
+    payload: error
+  }
+}
+
+
+//
+
+//
+
+import { FETCH_INFO_REQUEST, FETCH_INFO_SUCCESS, FETCH_INFO_FAILURE } from './infoActions';
+
+const initialState = {
+  userinf: {},
+  loading: false,
+  error: null
+}
+
+export const infoReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_INFO_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case FETCH_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userinf: action.payload
+      }
+    case FETCH_INFO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+    default:
+      return state
+  }
+}
+
+export default infoReducer;
+//
+
+//
+
+import React, { useRef, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchInfoRequest, fetchInfoSuccess, fetchInfoFailure } from './infoActions';
+import axios from 'axios';
+
+const UserInfoLayout = ({ userinf, loading, error, fetchUserData }) => {
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchUserData();
+    }
+  }, []);
+
+  if (loading) {
+    return <div className="card">Info loading...</div>
+  }
+
+  if (error) {
+    return <div className="card">Error: {error}</div>
+  }
+
+  return (
+    <div className="card">
+      <div className="card-header">Loaded successfully</div>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    userinf: state.userinf, // Corrected prop name
+    loading: state.loading,
+    error: state.error
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      fetchUserData: () => {
+        dispatch(fetchInfoRequest());
+        axios
+          .get('/gitapi/userinfo')
+          .then((response) => {
+            dispatch(fetchInfoSuccess(response.data));
+          })
+          .catch((error) => {
+            dispatch(fetchInfoFailure(error.message));
+          });
+      }
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfoLayout);
+//
+
+
+
+
+
+
+
+
+
+
+const UserInfoLayout = ({ login, userinf, loading, error, fetchUserData }) => {
+    const isInitialMount = useRef(true);
+    useEffect(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      } else {
+        fetchUserData();
+      }
+    }, []);
+    if (loading) {
+        return <div className="card">Info loading...</div>;
+      }
+      if (error) {
+        return <div className="card">Error: {error}</div>;
+      }
+      return (
+        <div className="card">
+        <div className="card-header">Loaded successfully</div>
+        </div>
+        );
+}
+
+
+    const mapStateToProps = (state) => {
+      return {
+        user: state.user,
+        loading: state.loading,
+        error: state.error
+      }
+    }
+    
+    const mapDispatchToProps = (dispatch) => {
+      return {
+        fetchUserData: (login) => {
+          dispatch(fetchInfoRequest());
+          axios.get('/gitapi/userinfo', { login })
+            .then(response => {
+              dispatch(fetchInfoSuccess(response.data))
+            })
+            .catch(error => {
+              dispatch(fetchInfoFailure(error.message))
+            });
+        }
+      }    
+};
+
+
+
+
+useEffect(() => {
+    if (!loading) {
+      fetchUser();
+    }
+  }, []);
+
+//const UserCardStores = Array.from({ length: 10 }, () => createStore(userReducer));
+
+      {UserCardStores.map((store) => (
+        <Provider store={store}>
+          <UserCardComponent />
+        </Provider>
+      ))}
+
+      export function fetchUser() {
+  return function(dispatch) {
+    dispatch(fetchUserRequest());
+    axios.get('http://localhost:3001/gitapi/random-users')
+      .then(response => {
+        dispatch(fetchUserSuccess(response.data))
+      })
+      .catch(error => {
+        dispatch(fetchUserFailure(error.message))
+      });
+  }
+}
+
+
+
+
+app.get('/gitapi/random-users', async (req, res) => {
+    try {
+      const randomUsersArray = [];
+      const accessToken = GitToken;
+      const maxAttempts = 1; // Максимальное количество попыток
+  
+      const requests = Array.from({ length: maxAttempts }, async (_, i) => {
+        const randomUserId = Math.floor(Math.random() * 500000);
+  
+        const response = await axios.get(`https://api.github.com/users?per_page=1&since=${randomUserId}`, {
+          headers: {
+            Authorization: `Bearer ` + GitToken,
+          },
+        });
+  
+        const randomUser = {
+          id: response.data[0].id,
+          login: response.data[0].login,
+          avatarUrl: response.data[0].avatar_url,
+        };
+        randomUsersArray.push(randomUser);
+        // ДЕБАГ
+        if (Debug_mode == 1) {
+            console.table(randomUsersArray);
+          }
+          // ДЕБАГ КОНЧИЛСЯ
+      });
+  
+      // Ждем завершения всех асинхронных запросов
+      await Promise.all(requests);
+        
+      res.json(randomUsersArray);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
+//изначальный код получения инфы о всех пользователях
+
+function Main_users() {
+    const [randomUsersArray, setRandomUsersArray] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3001/gitapi/random-users');
+          setRandomUsersArray(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+  return (
+<div>
+<Header />
+<div class="MPContainer">
+<div class="row justify-content-center">
+
+{randomUsersArray.map(user => (
+<div class="card">
+                <div class="card-header">User ID {user.id}</div>
+                <div class="card-body text-center">
+                <img class="img-account-profile rounded-circle mb-2 user_avatar" src={user.avatarUrl} alt=""></img>
+<div class="card-body">
+    <h5 class="card-title">{user.login}</h5>
+    <p class="card-text">{user.id}</p>
+    <p class="card-text">Email: johndoe@example.com</p>
+</div>
+</div>
+</div>
+))}
+</div>
+</div>
+<Footer />
+</div>
+  );
+}
+

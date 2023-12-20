@@ -23,8 +23,11 @@
   "license": "ISC",
   "dependencies": {
     "@octokit/rest": "^20.0.2",
+    "@tka85/dotenvenc": "^5.2.0",
     "axios": "^1.6.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "encrypted-env": "^0.2.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "passport": "^0.7.0",
@@ -33,7 +36,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "redux": "^5.0.0",
-    "redux-thunk": "^3.1.0"
+    "redux-thunk": "^3.1.0",
+    "secure-env": "^1.2.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
