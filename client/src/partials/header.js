@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header>
       <nav class="app-header navbar navbar-expand-lg">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/">
     <img src="https://banner2.cleanpng.com/20180326/eye/kisspng-github-computer-icons-logo-github-5ab8a338143da0.8375508315220498480829.jpg" alt="Logo" width="50" height="50"></img>
     GitPulseSampler
   </a>
