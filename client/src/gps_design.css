@@ -41,12 +41,22 @@ body{
     border: 2px solid transparent;
   }
 
+  .button_sec {
+    margin: 15px;
+  }
+
   .card_wide {
     color: snow;
     background-color: rgb(33, 38, 45);
     margin: 15px;
+    padding: 5px;
     border: 5px solid transparent;
     border-radius: 7px;
+  }
+
+  .btn
+  {
+    margin: 2px;
   }
 
   .card a

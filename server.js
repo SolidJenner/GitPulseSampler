@@ -83,6 +83,10 @@ app.get('/gitapi/userinfo/:user_login', async (req, res) => {
       location: response.data.location,
       hireable: response.data.hireable,
       repos: response.data.repos,
+      public_repos: response.data.public_repos,
+      followers: response.data.followers,
+      following: response.data.following,
+      blog: response.data.blog,
     };
     // ДЕБАГ
     if (Debug_mode == 1) {

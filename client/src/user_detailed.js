@@ -44,8 +44,26 @@ return (
       <img className="img-account-profile rounded-circle mb-2 user_avatar" src={userData && userData.avatarUrl} alt="" />
       <br></br>
       <p>{userData && userData.type}</p>
+      {userData && userData.company !== null && (
+      <p>{userData && userData.company}</p>
+    )}
       <p>{userData && userData.name}</p>
+      <p>{userData && userData.location}</p>
+      {userData && userData.company !== null && (
       <p>{userData && userData.email}</p>
+      )}
+      <p>Публичных репозиториев: {userData && userData.public_repos}</p>
+    {userData && userData.hireable !== null && (
+      <p>Ищет работу</p>
+      )}
+    
+    {userData && userData.following !== 0 && (
+      <span>Следует за {userData && userData.following} пользователями, </span>
+      )}
+    {userData && userData.followers !== 0 && (
+      <span>за ним следят {userData && userData.followers} пользователей</span>
+      )}
+    
     </div>
     </div>
 
@@ -56,6 +74,18 @@ return (
           </div>
         </div>
     )}
+
+<div className="card_wide button_sec">
+          <div className="card-body text-center">
+    {userData && userData.html_url !== null && (
+      <a href={userData && userData.html_url } class="btn btn-primary">К профилю на гитхаб</a>
+      )}
+    {userData && userData.blog !== '' && (
+      <a href={userData && userData.blog } class="btn btn-primary">К блогу</a>
+      )}
+      
+          </div>
+</div>
 
     </div>
 </div>
