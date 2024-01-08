@@ -46,13 +46,6 @@ app.get('/gitapi/random-users', async (req, res) => {
           avatarUrl: response.data[0].avatar_url,
           Type: response.data[0].type,
         };
-        // ДЕБАГ
-        if (Debug_mode == 1) {
-            console.table(randomUser);
-            DebugAPICount++;
-            console.log("Это ответ на запрос под номером:" + DebugAPICount);
-          }
-          // ДЕБАГ КОНЧИЛСЯ
       res.json(randomUser);
     } catch (error) {
       console.error(error);
@@ -60,14 +53,44 @@ app.get('/gitapi/random-users', async (req, res) => {
     }
   });
 
-//Детальная информация про пользователей - запрос от компонента на странице пользователя
+//Детальная информация про пользователей - запрос при переходе на страницу пользователя
 
-app.get('/gitapi/userinfo', async (req, res) => {
+app.get('/gitapi/userinfo/:user_login', async (req, res) => {
     try {
- console.log('request received!!!');
- const { login } = req.body;
+    const { user_login } = req.params;
+    // ДЕБАГ
+    if (Debug_mode == 1) {
+      console.table(user_login);
+    }
+    //дебаг кончился
+    const response = await axios.get(`https://api.github.com/users/${user_login}`, {
+      headers: {
+        Authorization: `Bearer ` + GitToken,
+      },
+    });
+    let userDetails = {
+      id: response.data.id,
+      login: response.data.login,
+      avatarUrl: response.data.avatar_url,
+      html_url: response.data.html_url,
+      followers_url: response.data.followers_url,
+      following_url: response.data.following_url,
+      type: response.data.type,
+      name: response.data.name,
+      company: response.data.company,
+      email: response.data.email,
+      bio: response.data.bio,
+      location: response.data.location,
+      hireable: response.data.hireable,
+      repos: response.data.repos,
+    };
+    // ДЕБАГ
+    if (Debug_mode == 1) {
+      console.table(userDetails);
+    }
+    //дебаг кончился
+    res.json(userDetails);
 
- console.table(login);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Something went wrong with GitHUB Api' });

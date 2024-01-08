@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch, login) => {
       fetchUserData: () => {
         dispatch(fetchInfoRequest());
         axios
-          .get('http://localhost:3001/gitapi/userinfo', { login })
+          .get('/users/:login', { login })
           .then((response) => {
             dispatch(fetchInfoSuccess(response.data));
           })

@@ -41,6 +41,14 @@ body{
     border: 2px solid transparent;
   }
 
+  .card_wide {
+    color: snow;
+    background-color: rgb(33, 38, 45);
+    margin: 15px;
+    border: 5px solid transparent;
+    border-radius: 7px;
+  }
+
   .card a
   {
     color: inherit;

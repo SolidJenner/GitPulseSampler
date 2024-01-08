@@ -15,6 +15,8 @@ import Footer from './partials/footer';
 const UserCardStores = Array.from({ length: 10 }, () => createStore(userReducer));
 
 function Main_users() {
+    document.title = "Главная страница - GitPulseSampler";
+
 return (
 <div>
 <Header />

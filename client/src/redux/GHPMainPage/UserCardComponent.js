@@ -49,7 +49,7 @@ const UserCardComponent = ({ user, loading, error, fetchUser }) => {
   return (
     <div className="card">
       <div className="card-header">ID {user.id}</div>
-      <Link to={`https://github.com/${user.login}`}>
+      <Link to={`/users/${user.login}`}>
       <div className="card-body text-center">
         <img className="img-account-profile rounded-circle mb-2 user_avatar" src={user.avatarUrl} alt="" />
         <div className="card-body">
