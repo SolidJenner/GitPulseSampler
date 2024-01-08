@@ -100,6 +100,38 @@ app.get('/gitapi/userinfo/:user_login', async (req, res) => {
     res.status(500).json({ error: 'Something went wrong with GitHUB Api' });
   }
   });
+
+
+//Информация про контрибуции - запрашивает компонент
+
+  app.get('/gitapi/usercontrib/:user_login', async (req, res) => {
+    try {
+    const { user_login } = req.params;
+    // ДЕБАГ
+    if (Debug_mode == 1) {
+      console.table(user_login);
+    }
+    //дебаг кончился
+    const response = await axios.get(`https://api.github.com/users/${user_login}/contributions`, {
+      headers: {
+        Authorization: `Bearer ` + GitToken,
+      },
+    });
+    let ContDetails = {
+
+    };
+    // ДЕБАГ
+    if (Debug_mode == 1) {
+      console.table(userDetails);
+    }
+    //дебаг кончился
+    res.json(userDetails);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Something went wrong with GitHUB Api' });
+  }
+  });
   
 
    // При активации сервера, уведомить в терминале о активации приложения

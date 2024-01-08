@@ -6,13 +6,14 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 //импортируем компонент из redux
-import infoReducer from './redux/GHPUserPage/infoReducers';
-import UserInfoLayout from './redux/GHPUserPage/UserInfoLayout';
+import creducer from './redux/GHP_UP_Contributions/creducer';
+import { setUsername } from './redux/GHP_UP_Contributions/cactions';
+import ContributionChart from './redux/GHP_UP_Contributions/cgcomponent';
 //стандартные хедеры
 import Header from './partials/header';
 import Footer from './partials/footer';
 
-const store = createStore(infoReducer);
+const store = createStore(creducer);
 
 
 function User_Info() {
@@ -20,7 +21,6 @@ const { login } = useParams();
 const [userData, setUserData] = useState(null);
 
 useEffect(() => {
-    console.log("react debug:" + login);
     axios
       .get(`http://localhost:3001/gitapi/userinfo/${login}`)
       .then((response) => {
@@ -32,6 +32,9 @@ useEffect(() => {
   }, [login]);
 
   document.title = login + " - пользователь - GitPulseSampler";
+
+
+
 return (
 <div>
 <Header />
@@ -86,6 +89,10 @@ return (
       
           </div>
 </div>
+
+<Provider store={store}>
+<ContributionChart />
+</Provider>
 
     </div>
 </div>
